@@ -1,0 +1,66 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li><a>{{user}}</a></li>
+  </ul>
+  <h3 class="text-muted">postWall</h3>
+</div>
+<div class="row">
+  <div class="col-sm-10 col-sm-offset-1 input-group">
+    <input type="text" class="form-control" ng-model='newContent'>
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="button" 
+        ng-click="addPost(newContent, 'default')">Post!</button>
+      <button class="btn btn-success" type="button" 
+        ng-click="addPost(newContent, 'success')">Post!</button>
+      <button class="btn btn-info" type="button" 
+        ng-click="addPost(newContent, 'info')">Post!</button>
+      <button class="btn btn-warning" type="button" 
+        ng-click="addPost(newContent, 'warning')">Post!</button>
+      <button class="btn btn-danger" type="button" 
+        ng-click="addPost(newContent, 'danger')">Post!</button>
+    </span>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-lg-12 post-wall">
+    <div ng-class="'item alert-' + post.color" ng-repeat="post in posts">
+      <!-- delete button -->
+      <span style="position: absolute;">
+        <button class="btn btn-default btn-xs" type="button"
+          ng-show="post.user == user" ng-click="removePost(post)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+        <button class="btn btn-default btn-xs" type="button"
+          ng-show="post.user == user" ng-click="editPost(post)">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+      </span>
+      <blockquote class="blockquote-reverse">
+        <small>{{post.time}}</small>
+        <p>{{post.content}}</p>
+        <footer><cite title="Source Title">{{post.user}}</cite></footer>
+      </blockquote>
+      <div class="text-center" style="margin-bottom: 10px" ng-show="post.image != ''">
+        <img src="{{post.image}}" class="img-responsive img-thumbnail">
+      </div>
+      <div class="well well-sm" ng-show="post.comments.length > 0">
+        <div ng-repeat="comment in post.comments">
+          <strong>{{comment.user}}:</strong> {{comment.content}}
+        </div>
+      </div>
+      <div class="input-group"><!-- 
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-heart"></span>
+          </button>
+        </span> -->
+        <input type="text" class="form-control" ng-model="post.newComment">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="addComment(post, post.newComment)">say</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+

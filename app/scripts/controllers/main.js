@@ -48,6 +48,13 @@ angular.module('postWallApp')
             $scope.startMasonry();
         }).error(function(data) {alert(data)});
     };
+    $scope.removeComment = function(comment) {
+        if (!confirm('Are you sure you are going to delete this comment?')) return;
+        Myservice.removeComment(comment).success(function(posts) {
+            $scope.posts = posts;
+            $scope.startMasonry();
+        }).error(function(data) {alert(data)});
+    };
     Myservice.query().success(function(posts) {
         $scope.posts = posts;
         $scope.startMasonry();

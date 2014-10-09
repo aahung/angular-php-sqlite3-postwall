@@ -47,6 +47,7 @@
       <div class="well well-sm" ng-show="post.comments.length > 0">
         <div ng-repeat="comment in post.comments">
           <strong>{{comment.user}}:</strong> {{comment.content}}
+          <a href="#" ng-show="comment.user == user" ng-click="removeComment(comment)">delete</a>
         </div>
       </div>
       <div class="input-group"><!-- 

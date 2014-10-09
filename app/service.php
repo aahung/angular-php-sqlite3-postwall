@@ -70,6 +70,15 @@ if (isset($_GET['q']) && $_GET['q'] == '1') {
         $stmt->bindValue(':time', time(), SQLITE3_INTEGER);
         $result = $stmt->execute();
         echo_all_posts($db);
+    } elseif ($_POST['q'] == 'cd') {
+        // delete
+        $id = $_POST['id'];
+        $stmt = $db->prepare('DELETE FROM comments 
+            WHERE ROWID = :id and user = :user');
+        $stmt->bindValue(':user', $t_user, SQLITE3_TEXT);
+        $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
+        $result = $stmt->execute();
+        echo_all_posts($db);
     } 
 }
 
@@ -89,7 +98,7 @@ function echo_all_posts($db) {
     }
     for ($i = 0; $i < count($posts); ++$i) {
         $results = $db->query('SELECT ROWID, * FROM comments 
-            WHERE post_id = ' . $posts[$i]['rowid'] . ' ORDER BY ROWID DESC');
+            WHERE post_id = ' . $posts[$i]['rowid'] . ' ORDER BY ROWID ASC');
         $comments = array();
         while ($row = $results->fetchArray()) {
             foreach ($row as $key => $value) {

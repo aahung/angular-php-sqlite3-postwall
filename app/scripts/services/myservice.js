@@ -56,5 +56,15 @@ angular.module('postWallApp')
             }
         });
     };
+    Service.removeComment = function(comment) {
+        return $http({
+            method: 'POST',
+            url: urlBase,
+            data: {
+                q: 'cd',
+                id: comment.rowid
+            }
+        });
+    };
     return Service;
 }]);
